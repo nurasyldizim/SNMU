@@ -21,7 +21,7 @@ function generateExcel() {
     var table_div1 = document.getElementById('table');
     var table_div2 = document.getElementById('table2');
     var table_div3 = document.getElementById('table3');
-    var table_html = (table_div1.outerHTML+table_div2.outerHTML+table_div3.outerHTML).replace(/ /g, '%20').replace(/\./g, ',');
+    var table_html = (table_div1.outerHTML+table_div2.outerHTML+table_div3.outerHTML).replace(/ /g, '%20').replace(/\./g, ',').replace(/null/g, "");
     //var table_html = table_div1.outerHTML.replace(/ /g, '%20').replace(/\./g, ',');
       while (table_html.indexOf('о') != -1) table_html = table_html.replace('о', '&#1086;');
     var a = document.createElement('a');
