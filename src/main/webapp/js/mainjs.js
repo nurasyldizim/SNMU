@@ -63,9 +63,8 @@ function countEachPdkN(cell) {
 
 function calPDK(i, id) {
     var table = document.getElementById("table"), data = parseFloat(table.rows[i + 2].cells[id - 1].innerHTML), pdk = parseFloat(table.rows[table.rows.length - 1].cells[id - 1].innerHTML);
-
     if (isNaN(parseFloat(data / pdk))) {
-        document.getElementById(cell + "countEachM").innerHTML = "";
+        document.getElementById(String(id) + String(i)).innerHTML = "";
     } else {
         document.getElementById(String(id) + String(i)).innerHTML = parseFloat(data / pdk);
     }
@@ -73,7 +72,7 @@ function calPDK(i, id) {
 
 function showTableData(i, id) {
     var table = document.getElementById("table"), data = table.rows[i + 2].cells[id - 1].innerHTML;
-    document.getElementById(String(id) + String(i)).innerHTML = data;
+    document.getElementById("id"+String(id) + String(i)).innerHTML = data;
 }
 
 function countEachM(cell) {
