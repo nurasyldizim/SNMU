@@ -25,7 +25,7 @@ function generateExcel() {
     //var table_html = table_div1.outerHTML.replace(/ /g, '%20').replace(/\./g, ',');
       while (table_html.indexOf('о') != -1) table_html = table_html.replace('о', '&#1086;');
     var a = document.createElement('a');
-    a.href = data_type + ', ' + table_html;
+    a.href = data_type + ',' + '\uFEFF' + table_html;
     a.download = dateValue;
     a.click();
 }
