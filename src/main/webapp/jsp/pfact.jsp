@@ -114,18 +114,12 @@
         <table id="table" width="220" border="1">
             <tr><td colspan="20">Расчетная матрица для "P" г.<%=cityName%> </td></tr>
             <tr><th></th><th>Срок</th><th>Взвешенные частицы(пыль)</th><th>Диоксид серы</th><th>Сульфаты растворимые</th><th>Оксид углерода</th><th>Диоксид азота</th><th>Оксид азота</th><th>Озон</th><th>Сероводород</th><th>Фенол</th><th>Фтористый водород</th><th>Хлор</th><th>Хлористый водород</th><th>Аммиак</th><th>Серная кислота и сульфаты</th><th>Формальдегид</th><th>Неорганические соединения мышьяк</th><th>Хром шестивалентный</th><th>Суммарные углеводороды</th></tr>   
-            <script>var pnzListJS = ['Day'];</script>
             <%
                 int rowCount = 0;
                 PnzDataDao pnzDataDao = new PnzDataDao();               
                 PnzDao pnzDao = new PnzDao();
                 List<Pnz> list = pnzDao.listPnzs(cityId);
                 for (Pnz p : list) {   
-            %>
-            <script>
-               pnzListJS.push('<%=p.getPnzName()%>');
-            </script>
-            <%
                     ArrayList<PnzData>[] pnzDatalist = pnzDataDao.listPnzDatasToFP(p.getPnzId(),date); 
                 for (int i = 0; i<4; i++) {
                         Iterator iterDataList = pnzDatalist[i].iterator();
@@ -327,7 +321,7 @@
                 <td>0.5000</td>
                 <td>0.5000</td>
                 <td></td>
-                <td>5.0000</td>
+                <td>0.5000</td>
                 <td>0.2000</td>
                 <td>0.4000</td>
                 <td>0.1600</td>
@@ -353,8 +347,8 @@
                         for(int i =0; i<rowCount; i++){
                     %>
             <tr>
-                <td id="1<%=i%>"><script>showTableData(<%=i%>, 1);</script></td>
-                <td id="2<%=i%>"><script>showTableData(<%=i%>, 2);</script></td>
+                <td id="id1<%=i%>"><script>showTableData(<%=i%>, 1);</script></td>
+                <td id="id2<%=i%>"><script>showTableData(<%=i%>, 2);</script></td>
                 <td id="3<%=i%>"><script>calPDK(<%=i%>, 3);</script></td>
                 <td id="4<%=i%>"><script>calPDK(<%=i%>, 4);</script></td>
                 <td id="5<%=i%>"><script>calPDK(<%=i%>, 5);</script></td>
@@ -381,7 +375,7 @@
                 <td>0.5000</td>
                 <td>0.5000</td>
                 <td></td>
-                <td>0.5000</td>
+                <td>5.0000</td>
                 <td>0.2000</td>
                 <td>0.4000</td>
                 <td>0.1600</td>
@@ -432,7 +426,7 @@
             </tr>              
         </table>
     </div>
-    <center> <select style="width: 500px;" class="class-select" id="chartSelect" onchange="drawCharts(Array.apply(null, pnzListJS))">
+    <center> <select style="width: 500px;" class="class-select" id="chartSelect" onchange="drawCharts()">
             <option value="2">Взвешенные частицы (пыль)</option>
             <option value="3">Диоксид серы</option>
             <option value="4">Сульфаты растворимые</option>
@@ -454,7 +448,7 @@
         </select></center>
             
     <div class="chart">
-        <button class="pbutton" id="clickbutton">Сохранить</button>
+        <button class="pbutton" id="clickbutton">Изображение</button>
         <h2>Диаграмма по ПНЗ <%=cityName%></h2>
         <h5 id="optionName"></h5>
         <div id="bar-chart"></div>
