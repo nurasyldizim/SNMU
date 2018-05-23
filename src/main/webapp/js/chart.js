@@ -5,8 +5,23 @@
  */
 google.load("visualization", "1", {packages:["corechart"]});
 google.setOnLoadCallback(drawCharts);
-function drawCharts(pnzListJS) {
-    var i,j;
+function drawCharts() {
+    var selectChart = document.getElementById("chartSelect");
+    var columnNumber = selectChart.options[selectChart.selectedIndex].value;
+    document.getElementById("optionName").innerHTML = selectChart.options[selectChart.selectedIndex].text;
+    var table = document.getElementById("table"),rows = parseInt(table.rows.length);
+    var pnzArray = [];
+        for(var r = 2; r<rows-8; r++){
+            pnzArray.push(table.rows[r].cells[0].innerHTML)
+        }
+    
+    var uniquePnzs = [];
+    $.each(pnzArray, function(i, el){
+    if($.inArray(el, uniquePnzs) === -1) uniquePnzs.push(el);
+    });
+    uniquePnzs.pop();
+    uniquePnzs.unshift("temp");
+    var i;
  
     barDataTemp = [
     ['Day'],
@@ -15,38 +30,35 @@ function drawCharts(pnzListJS) {
     ['13:00'],
     ['19:00']
   ];
-  for (i=0; i<pnzListJS.length; i++) {
-        barDataTemp[0][i] = pnzListJS[i];
+  for (i=0; i<uniquePnzs.length; i++) {
+        barDataTemp[0][i] = uniquePnzs[i];
     }
-  for (i=1; i<pnzListJS.length; i++) {
+  for (i=1; i<uniquePnzs.length; i++) {
         barDataTemp[1][i] = 0;
     }
-  for (i=1; i<pnzListJS.length; i++) {
+  for (i=1; i<uniquePnzs.length; i++) {
         barDataTemp[2][i] = 0;
     }
-  for (i=1; i<pnzListJS.length; i++) {
+  for (i=1; i<uniquePnzs.length; i++) {
         barDataTemp[3][i] = 0;
     }
-  for (i=1; i<pnzListJS.length; i++) {
+  for (i=1; i<uniquePnzs.length; i++) {
         barDataTemp[4][i] = 0;
     }
-var selectChart = document.getElementById("chartSelect");
-var columnNumber = selectChart.options[selectChart.selectedIndex].value;
-document.getElementById("optionName").innerHTML = selectChart.options[selectChart.selectedIndex].text;
-var table = document.getElementById("table"),rows = parseInt(table.rows.length);
+    
             for(var r = 2; r<rows-8; r++){
-                for(i=1;i<pnzListJS.length;i++){
+                for(i=1;i<uniquePnzs.length;i++){
                     switch(table.rows[r].cells[0].innerHTML+table.rows[r].cells[1].innerHTML){
-                        case pnzListJS[i]+"1:00":
+                        case uniquePnzs[i]+"1:00":
                             barDataTemp[1][i] = parseFloat(table.rows[r].cells[columnNumber].innerHTML);
                             break;
-                        case pnzListJS[i]+"7:00":
+                        case uniquePnzs[i]+"7:00":
                             barDataTemp[2][i] = parseFloat(table.rows[r].cells[columnNumber].innerHTML);
                             break;
-                        case pnzListJS[i]+"13:00":
+                        case uniquePnzs[i]+"13:00":
                             barDataTemp[3][i] = parseFloat(table.rows[r].cells[columnNumber].innerHTML);
                             break;
-                        case pnzListJS[i]+"19:00":
+                        case uniquePnzs[i]+"19:00":
                             barDataTemp[4][i] = parseFloat(table.rows[r].cells[columnNumber].innerHTML);
                             break;
                     }
